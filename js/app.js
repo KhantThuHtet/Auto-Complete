@@ -294,7 +294,12 @@ const buildUi = (productData) => {
     if (event.target.value == 0) {
       return;
     }
-    let searchText = event.target.value.toLowerCase();
+    showProductList(event, products);
+  });
+};
+
+function showProductList(event, products){
+  let searchText = event.target.value.toLowerCase();
     filteredProduct = products.filter((el) => {
       let productTitle = el.title.toLowerCase();
       return productTitle.includes(searchText);
@@ -306,8 +311,9 @@ const buildUi = (productData) => {
           <img src="${element.image}" class="product-img">
       </div>`;
     });
-  });
-};
+}
+
+
 
 let indexToSelect = -1;
 
@@ -347,6 +353,10 @@ const navigateAndSelectProduct = (key) => {
     productIdToShow.style.backgroundColor = "#555048";
     productIdToShow.classList.add("selected");
   } else {
+    if (!inputBox.value || inputBox.value) {
+      console.log('Go back');
+      return;
+    }
     let productIdToShow = document.getElementById(
       filteredProduct[indexToSelect].id.toString()
     );
